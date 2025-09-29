@@ -6,8 +6,8 @@ on:
       - main
 
 env:
-  AWS_REGION: ap-south-1           # 🔹 Change to your AWS region
-  ECR_REPOSITORY: node-login-app   # 🔹 Your ECR repository name
+  AWS_REGION: us-east-1           # 🔹 Change to your AWS region
+  ECR_REPOSITORY: simplyicard-repo   # 🔹 Your ECR repository name
 
 jobs:
   build-and-push:
