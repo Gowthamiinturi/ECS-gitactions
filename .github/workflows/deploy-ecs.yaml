@@ -51,6 +51,6 @@ jobs:
 
       - name: Deploy ECS Service
         run: |
-          echo "🚀 Updating ECS service with new task..."
+          echo "🚀 Updating ECS service with new task...."
           aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
           echo "✅ Deployment triggered successfully!"
