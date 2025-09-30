@@ -35,7 +35,7 @@ jobs:
 
       - name: Update ECS Task Definition
         run: |
-          echo "📄 Fetching current task definition..."
+          echo "📄 Fetching current task definition...."
           TASK_DEF=$(aws ecs describe-task-definition --task-definition $TASK_FAMILY)
 
           echo "📝 Preparing new revision..."
