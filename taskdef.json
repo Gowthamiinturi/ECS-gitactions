@@ -1,0 +1,30 @@
+{
+  "family": "simplyicard-dev-taskdefinition",
+  "networkMode": "bridge",
+  "requiresCompatibilities": ["EC2"],
+  "executionRoleArn": "arn:aws:iam::983911888147:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "mycontainer",
+      "image": "amazon/amazon-ecs-sample",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 0,
+          "protocol": "tcp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/simplyicard-dev",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "cpu": "256",
+  "memory": "512"
+}
