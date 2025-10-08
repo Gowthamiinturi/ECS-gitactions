@@ -2,7 +2,7 @@
   "family": "simplyicard-dev-taskdefinition",
   "networkMode": "bridge",
   "requiresCompatibilities": ["EC2"],
-  "executionRoleArn": "arn:aws:iam::983911888147:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::253850235518:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "name": "mycontainer",
