@@ -75,6 +75,6 @@ app.post("/login", (req, res) => {
 });
 
 // Start the server
-app.listen(3000, '0.0.0.0', () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ App running at http://localhost:${PORT}`);
 });
