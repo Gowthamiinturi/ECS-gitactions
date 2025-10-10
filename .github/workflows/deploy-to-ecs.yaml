@@ -1,4 +1,4 @@
-name: Build, Push to ECR, and Deploy to ECS
+name: Deploy to ECS
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      # Step 4: Build, tag, and push image to ECR
+      # Step 4: Build and push Docker image to ECR
       - name: Build and push image to ECR
         id: build-image
         env:
@@ -46,7 +46,15 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-      # Step 5: Render new ECS task definition
+      # Step 5: Inject DB Secrets into taskdef.json
+      - name: Inject secrets into taskdef.json
+        run: |
+          sed -i "s|DB_HOST_PLACEHOLDER|${{ secrets.DB_HOST }}|g" taskdef.json
+          sed -i "s|DB_USER_PLACEHOLDER|${{ secrets.DB_USER }}|g" taskdef.json
+          sed -i "s|DB_PASSWORD_PLACEHOLDER|${{ secrets.DB_PASSWORD }}|g" taskdef.json
+          sed -i "s|DB_NAME_PLACEHOLDER|${{ secrets.DB_NAME }}|g" taskdef.json
+
+      # Step 6: Render new ECS task definition with new image
       - name: Fill in the new image ID in the ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -55,7 +63,7 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
-      # Step 6: Deploy to Amazon ECS
+      # Step 7: Deploy to Amazon ECS
       - name: Deploy to ECS service
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
