@@ -62,6 +62,12 @@ jobs:
           task-definition: taskdef.json
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
+       #  Step 6.5: Debug rendered task definition
+      - name: Debug rendered taskdef
+        run: |
+          echo "Task definition path: ${{ steps.task-def.outputs.task-definition }}"
+          echo "----- Task Definition Content -----"
+          cat ${{ steps.task-def.outputs.task-definition }}
 
       # Step 7: Deploy to Amazon ECS
       - name: Deploy to ECS service
