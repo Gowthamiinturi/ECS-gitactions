@@ -78,6 +78,6 @@ app.post("/login", async (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(3000, '0.0.0.0', () => {
   console.log(`✅ App running at http://localhost:${PORT}`);
 });
